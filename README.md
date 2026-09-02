@@ -10,7 +10,7 @@
 2. [周期性电荷的场](物理学专题讨论/周期性电荷的场/)：来源于Zangwill 现代电动力学的习题以及笔者学习电磁学时期末考试中的一道试题。主要研究了对于周期性的电荷分布，例如:
 
    $$
-   \sigma(x,y,z)=\sum _{n=0}^{\infty} (-1)^{n}\lambda\delta(x-na)\delta(z)
+   \sigma(x,y,z)=\sum _{n=-\infty}^{\infty} (-1)^{n}\lambda\delta(x-na)\delta(z)
    $$
 
    这样的电荷分布。从分离变量法的角度介绍了这一类问题的处理方法以及傅里叶变换在求解 Poisson 方程中的应用。
