@@ -1,0 +1,51 @@
+% !TEX program = xelatex
+
+\documentclass[11pt,a4paper]{ctexart}
+
+% ====== 字体 ======
+\usepackage{fontspec}
+\setmainfont{Latin Modern Roman}
+\usepackage{unicode-math}
+% 修改：XITS Math 拥有原生粗体数学字形，解决 \symbfit 加粗无效的问题
+\setmathfont{XITS Math}
+
+% ====== 颜色支持 ======
+\usepackage{xcolor}
+
+% ====== 页面设置 ======
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\pagestyle{plain}
+
+% ====== 数学宏包 ======
+\usepackage{mathtools}
+\usepackage{amsmath}
+% \usepackage{amssymb}   % 删除
+% \usepackage{bm}        % 彻底删除
+
+% ====== 三线表 + 数字对齐 ======
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{enumitem}
+
+% ====== 交叉引用与超链接 ======
+\usepackage[colorlinks=true,
+            linkcolor=blue,
+            citecolor=green,
+            urlcolor=cyan]{hyperref}
+\usepackage[noabbrev,nameinlink]{cleveref}
+
+% ====== 自定义命令 ======
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\source}[1]{\par \hfill ——#1}
+
+\title{周期性电荷分布的场}
+\author{王晨暄}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+
+\end{document}
