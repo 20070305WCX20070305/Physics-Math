@@ -36,6 +36,22 @@
             urlcolor=cyan]{hyperref}
 \usepackage[noabbrev,nameinlink]{cleveref}
 
+% ====== 框架图形 ======
+\usepackage{tcolorbox}  % 引入 tcolorbox 宏包
+\tcbuselibrary{skins, breakable} % 加载所需库，以实现更多样式和自动分页
+
+% 定义一个名为 block 的环境
+\newtcolorbox{block}{
+    colback=white,        % 背景色
+    colframe=black!75,    % 边框颜色
+    boxrule=0.5mm,        % 边框粗细
+    arc=2mm,              % 圆角大小
+    boxsep=5pt,           % 边框与内容的间距
+    left=6pt, right=6pt,  % 左右内边距
+    top=6pt, bottom=6pt,  % 上下内边距
+    breakable             % 允许盒子在跨页时自动断开
+}
+
 % ====== 自定义命令 ======
 \newcommand{\dd}{\mathrm{d}}
 \newcommand{\source}[1]{\par \hfill ——#1}
@@ -47,5 +63,85 @@
 \begin{document}
 \maketitle
 
+在本文中我们来考虑两种有趣的周期性的电荷分布体系，并且针对这两种情况具体计算空间中的非奇点区域的电势分布。
+除了文中给出的分离变量法的解法之外，还可以考虑积分变换在这一类问题中的应用。
+
+\section{无限长带电直线阵列}
+
+\begin{block}
+    {\kaishu 考虑无限长的带电直线阵列，电荷分布可以表示为：
+
+    \begin{equation}
+        \rho(\symbfit{r})=\sum_{n=-\infty}^{\infty}\lambda\delta(x-na)\delta(z)
+        \label{eq:charge_distribution1}
+    \end{equation}
+
+    求解空间中的电势函数，表示成级数形式。
+    }
+
+\end{block}
+
+\bigskip
+
+首先分析问题：上述电荷分布描述的是平行于 y 轴的无限长带电直线阵列，沿 x 轴方向周期性分布。
+所以形成的电场在 x 轴方向上具有周期性，在 y 轴上具有平移不变性。同时，由于电荷分布关于$z=0$以及$x=0$对称，
+则有: $\phi(x,z)=\phi(-x,z),\phi(x,-z)=\phi(x,z),\phi(x,z)=\phi(x+a,z)$。
+
+\bigskip
+
+在$z\neq 0$平面上，电势函数满足二维的 Laplace 方程：
+
+\begin{equation}
+    \frac{\partial^2\phi}{\partial x^2}+\frac{\partial^2\phi}{\partial z^2}=0
+    \label{eq:Laplace}
+\end{equation}
+
+分离变量法得到方程的级数形式的解为：
+
+\begin{equation}
+    \phi(x,z)=A+B\left|z\right|+\sum_{\gamma}C_{\gamma}\cos(\gamma x)e^{-\gamma\left|z\right|}
+    \label{eq:solution}
+\end{equation}
+
+考虑到 x 方向的周期性，$\gamma$ 的取值为 $\gamma=\dfrac{2\pi m}{a},m=1,2,3,\cdots$。代入方程\eqref{eq:solution}，得到：
+
+\begin{equation}
+    \phi(x,z)=A+B\left|z\right|+\sum_{m=1}^{\infty}C_{m}\cos\left(\frac{2\pi m}{a} x\right)e^{-2\pi m\left|z\right|/a}
+\end{equation}
+
+计算$z=0$平面上的法向电场的变化得到：
+
+\begin{align}
+    E_z(x,0^+)-E_z(x,0^-)&=-\frac{\partial\phi}{\partial z}\Big|_{z=0^+}+\frac{\partial\phi}{\partial z}\Big|_{z=0^-} \notag\\
+    &=-2B+\sum_{m=1}^{\infty}C_{m}\frac{4\pi m}{a}\cos\left(\frac{2\pi m}{a} x\right) \notag
+    \label{eq:Ez_jump}
+\end{align}
+
+根据边界条件得到：$E_z(x,0^+)-E_z(x,0^-)=\dfrac{\sigma(z,0)}{\epsilon_0}$，带入得到方程：
+
+\begin{equation}
+    -2B+\sum_{m=1}^{\infty}C_{m}\frac{4\pi m}{a}\cos\left(\frac{2\pi m}{a} x\right)=\frac{\lambda}{\epsilon_0}\sum_{n=-\infty}^{\infty}\delta(x-na)
+    \label{eq:boundary_condition}
+\end{equation}
+
+考虑到周期为$a$，将右侧函数在区间$(-\dfrac{a}{2},\dfrac{a}{2})$上展开为 Fourier 级数, 与左边对比系数得到：
+
+\begin{align}
+    B&=-\frac{\lambda}{2a\epsilon_0} \notag\\
+    C_m&=\frac{\lambda}{2\pi\epsilon_0}\frac{1}{m} \notag
+\end{align}
+
+代入方程\eqref{eq:solution}，得到最终的电势函数为：
+
+\begin{equation}
+    \phi(x,z)=-\frac{\lambda}{2a\epsilon_0}\left|z\right|+\frac{\lambda}{2\pi\epsilon_0}\sum_{m=1}^{\infty}\frac{1}{m}\cos\left(\frac{2\pi m}{a} x\right)e^{-2\pi m\left|z\right|/a}
+    \label{eq:final_solution}
+\end{equation}
+
+\bigskip
+
+注意到在$\dfrac{\lambda}{a}$ 有限，$a \to 0$时，电荷分布趋向于面电荷密度为$\sigma=\dfrac{\lambda}{a}$的无限大平面，
+此时方程\eqref{eq:final_solution}中的级数项趋向于零，
+电势函数趋向于$\phi(x,z)=-\dfrac{\sigma}{2\epsilon_0}\left|z\right|$，与无限大平面电荷分布的结果一致。
 
 \end{document}
