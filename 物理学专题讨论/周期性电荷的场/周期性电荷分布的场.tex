@@ -117,7 +117,7 @@
     \label{eq:Ez_jump}
 \end{align}
 
-根据边界条件得到：$E_z(x,0^+)-E_z(x,0^-)=\dfrac{\sigma(z,0)}{\epsilon_0}$，带入得到方程：
+根据边界条件得到：$E_z(x,0^+)-E_z(x,0^-)=\dfrac{\sigma(x,0)}{\epsilon_0}$，带入得到方程：
 
 \begin{equation}
     -2B+\sum_{m=1}^{\infty}C_{m}\frac{4\pi m}{a}\cos\left(\frac{2\pi m}{a} x\right)=\frac{\lambda}{\epsilon_0}\sum_{n=-\infty}^{\infty}\delta(x-na)
@@ -144,4 +144,138 @@
 此时方程\eqref{eq:final_solution}中的级数项趋向于零，
 电势函数趋向于$\phi(x,z)=-\dfrac{\sigma}{2\epsilon_0}\left|z\right|$，与无限大平面电荷分布的结果一致。
 
+\section{二维交错的点电荷阵列}
+
+\begin{block}
+    {\kaishu 考虑二维交错的点电荷阵列，电荷分布可以表示为：
+
+    \begin{equation}
+        \rho(\symbfit{r})=\sum_{m=-\infty}^{\infty}\sum_{n=-\infty}^{\infty}(-1)^{m+n}q\delta(x-na)\delta(y-mb)\delta(z)
+        \label{eq:charge_distribution2}
+    \end{equation}
+
+    求解空间中的电势函数，表示成级数形式。并且在$a=b$的情况下分析z轴上的电势分布。
+    }
+\end{block}
+
+\bigskip
+
+首先分析问题：上述电荷分布描述的是位于 $z=0$ 平面上的二维交错点电荷阵列，沿 $x$ 轴和 $y$ 轴方向分别具有反周期 $a$ 与 $b$。所谓反周期是指平移一个周期后电荷符号反转，平移两个周期后恢复原状，即
+\[
+\rho(x+a,y,z)=-\rho(x,y,z),\qquad \rho(x,y+b,z)=-\rho(x,y,z).
+\]
+因此电势满足
+\[
+\phi(x+a,y,z)=-\phi(x,y,z),\qquad \phi(x,y+b,z)=-\phi(x,y,z),
+\]
+并且 $\phi(x+2a,y,z)=\phi(x,y,z)$，$\phi(x,y+2b,z)=\phi(x,y,z)$。同时，电荷分布关于 $x=0$、$y=0$ 以及 $z=0$ 平面都是对称的，所以 $\phi$ 是 $x,y$ 的偶函数，且
+\[
+\phi(x,y,z)=\phi(-x,y,z),\qquad \phi(x,y,-z)=\phi(x,y,z).
+\]
+此外，每个 $2a\times 2b$ 的周期单元内正负电荷数目相等，净电荷为零，因此解中不出现由均匀面电荷产生的 $\left|z\right|$ 线性项。
+
+\bigskip
+
+在 $z\neq 0$ 区域，电势满足三维 Laplace 方程：
+\begin{equation}
+    \frac{\partial^2\phi}{\partial x^2}+\frac{\partial^2\phi}{\partial y^2}+\frac{\partial^2\phi}{\partial z^2}=0
+    \label{eq:Laplace2}
+\end{equation}
+
+分离变量法给出满足上述对称性和反周期性的级数解：
+\begin{equation}
+    \phi(x,y,z)=\sum_{p=0}^{\infty}\sum_{r=0}^{\infty}C_{pr}\cos\left(\frac{(2p+1)\pi x}{a}\right)\cos\left(\frac{(2r+1)\pi y}{b}\right)e^{-k_{pr}\left|z\right|}
+    \label{eq:solution2}
+\end{equation}
+其中
+\begin{equation}
+    k_{pr}=\sqrt{\left(\frac{(2p+1)\pi}{a}\right)^2+\left(\frac{(2r+1)\pi}{b}\right)^2}
+    \label{eq:kpr}
+\end{equation}
+
+计算 $z=0$ 平面上的法向电场跳变。由于 $\phi$ 是 $z$ 的偶函数，有
+\begin{equation}
+    E_z(x,y,0^+)-E_z(x,y,0^-)=-2\left.\frac{\partial\phi}{\partial z}\right|_{z=0^+}
+    \label{eq:Ez_jump2}
+\end{equation}
+代入级数解得到
+\begin{equation}
+    E_z(x,y,0^+)-E_z(x,y,0^-)
+    =2\sum_{p=0}^{\infty}\sum_{r=0}^{\infty}C_{pr}k_{pr}\cos\left(\frac{(2p+1)\pi x}{a}\right)\cos\left(\frac{(2r+1)\pi y}{b}\right)
+    \label{eq:Ez_jump2_expanded}
+\end{equation}
+
+根据边界条件，该跳变等于面电荷密度除以 $\epsilon_0$：
+\begin{equation}
+    2\sum_{p=0}^{\infty}\sum_{r=0}^{\infty}C_{pr}k_{pr}\cos\left(\frac{(2p+1)\pi x}{a}\right)\cos\left(\frac{(2r+1)\pi y}{b}\right)
+    =\frac{1}{\epsilon_0}\sum_{m=-\infty}^{\infty}\sum_{n=-\infty}^{\infty}(-1)^{m+n}q\delta(x-na)\delta(y-mb)
+    \label{eq:boundary_condition2}
+\end{equation}
+
+将右侧面电荷密度在 $0<x<2a,\;0<y<2b$ 的一个周期单元内展开为二维余弦级数。该单元内包含四个点电荷：$(0,0)$ 处为 $+q$，$(a,0)$ 处为 $-q$，$(0,b)$ 处为 $-q$，$(a,b)$ 处为 $+q$。利用正交性
+\[
+\int_0^{2a}\cos^2\left(\frac{(2p+1)\pi x}{a}\right)\dd x=a,\qquad
+\int_0^{2b}\cos^2\left(\frac{(2r+1)\pi y}{b}\right)\dd y=b,
+\]
+可得
+\begin{equation}
+    \sum_{m=-\infty}^{\infty}\sum_{n=-\infty}^{\infty}(-1)^{m+n}q\delta(x-na)\delta(y-mb)
+    =\frac{4q}{ab}\sum_{p=0}^{\infty}\sum_{r=0}^{\infty}\cos\left(\frac{(2p+1)\pi x}{a}\right)\cos\left(\frac{(2r+1)\pi y}{b}\right)
+    \label{eq:fourier_sigma}
+\end{equation}
+
+将 \eqref{eq:fourier_sigma} 代入 \eqref{eq:boundary_condition2}，对比两边相同余弦项的系数得到
+\begin{equation}
+    2C_{pr}k_{pr}=\frac{4q}{ab\epsilon_0}
+    \label{eq:coefficient_relation}
+\end{equation}
+因此
+\begin{equation}
+    C_{pr}=\frac{2q}{ab\epsilon_0 k_{pr}}
+    \label{eq:Cpr}
+\end{equation}
+
+代回 \eqref{eq:solution2}，最终得到空间中的电势级数形式为
+\begin{equation}
+    \phi(x,y,z)=\frac{2q}{ab\epsilon_0}\sum_{p=0}^{\infty}\sum_{r=0}^{\infty}\frac{1}{k_{pr}}\cos\left(\frac{(2p+1)\pi x}{a}\right)\cos\left(\frac{(2r+1)\pi y}{b}\right)e^{-k_{pr}\left|z\right|}
+    \label{eq:final_solution2}
+\end{equation}
+其中 $k_{pr}$ 由 \eqref{eq:kpr} 给出。
+
+\bigskip
+
+下面在 $a=b$ 的情况下分析 $z$ 轴上的电势分布。在 $z$ 轴上，$x=y=0$，所有余弦项均等于 $1$，于是 \eqref{eq:final_solution2} 简化为
+\begin{equation}
+    \phi(0,0,z)=\frac{2q}{\pi a\epsilon_0}\sum_{p=0}^{\infty}\sum_{r=0}^{\infty}\frac{1}{\sqrt{(2p+1)^2+(2r+1)^2}}e^{-\frac{\pi\left|z\right|}{a}\sqrt{(2p+1)^2+(2r+1)^2}}
+    \label{eq:z_axis_potential}
+\end{equation}
+
+令 $u=\dfrac{\pi\left|z\right|}{a}$，则上式可写为
+\begin{equation}
+    \phi(0,0,z)=\frac{2q}{\pi a\epsilon_0}S(u)
+    \label{eq:z_axis_potential_S}
+\end{equation}
+其中
+\[
+S(u)=\sum_{p=0}^{\infty}\sum_{r=0}^{\infty}\frac{1}{\sqrt{(2p+1)^2+(2r+1)^2}}e^{-u\sqrt{(2p+1)^2+(2r+1)^2}}
+\]
+
+当 $u\gg 1$，即 $\left|z\right|\gg a$ 时，级数中 $p=r=0$ 的项起主导作用，因此
+\[
+\phi(0,0,z)\approx \frac{2q}{\pi a\epsilon_0}\frac{1}{\sqrt{2}}e^{-\sqrt{2}\pi\left|z\right|/a}
+=\frac{\sqrt{2}q}{\pi a\epsilon_0}e^{-\sqrt{2}\pi\left|z\right|/a}
+\]
+电势随距离指数衰减，这正反映了体系净电荷为零的特征。
+
+当 $u\ll 1$，即 $\left|z\right|\ll a$ 但 $z\neq 0$ 时，求和可用积分近似。作变量代换 $X=2p+1,\;Y=2r+1$，有
+\[
+S(u)\approx \frac{1}{4}\int_0^\infty\int_0^\infty\frac{e^{-u\sqrt{X^2+Y^2}}}{\sqrt{X^2+Y^2}}\dd X\dd Y
+=\frac{\pi}{8u}
+\]
+于是
+\[
+\phi(0,0,z)\approx \frac{2q}{\pi a\epsilon_0}\frac{\pi}{8u}
+=\frac{q}{4\pi\epsilon_0\left|z\right|}
+\]
+这正是原点处点电荷 $q$ 的库仑势，说明在靠近原点但尚未碰到奇点的区域，电势行为由原点处的正电荷主导。
 \end{document}
