@@ -1,4 +1,3 @@
-
 # Hubbard Model and Mott Insulator
 
 > **Context:** These notes assume a basic foundation in quantum mechanics, but not yet a full background in quantum many-body physics.

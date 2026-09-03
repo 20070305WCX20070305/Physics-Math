@@ -1,0 +1,145 @@
+% !TEX program = xelatex
+
+\documentclass[11pt,a4paper]{ctexart}
+
+% ====== 字体 ======
+\usepackage{fontspec}
+\setmainfont{Latin Modern Roman}
+\usepackage{unicode-math}
+% 修改：XITS Math 拥有原生粗体数学字形，解决 \symbfit 加粗无效的问题
+\setmathfont{XITS Math}
+
+% ====== 颜色支持 ======
+\usepackage{xcolor}
+
+% ====== 页面设置 ======
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\pagestyle{plain}
+
+% ====== 数学宏包 ======
+\usepackage{mathtools}
+\usepackage{amsmath}
+% \usepackage{amssymb}   % 删除
+% \usepackage{bm}        % 彻底删除
+
+% ====== 三线表 + 数字对齐 ======
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{enumitem}
+
+% ====== 交叉引用与超链接 ======
+\usepackage[colorlinks=true,
+            linkcolor=blue,
+            citecolor=green,
+            urlcolor=cyan]{hyperref}
+\usepackage[noabbrev,nameinlink]{cleveref}
+
+% ====== 框架图形 ======
+\usepackage{tcolorbox}  % 引入 tcolorbox 宏包
+\tcbuselibrary{skins, breakable} % 加载所需库，以实现更多样式和自动分页
+
+% 定义一个名为 block 的环境
+\newtcolorbox{block}{
+    colback=white,        % 背景色
+    colframe=black!75,    % 边框颜色
+    boxrule=0.5mm,        % 边框粗细
+    arc=2mm,              % 圆角大小
+    boxsep=5pt,           % 边框与内容的间距
+    left=6pt, right=6pt,  % 左右内边距
+    top=6pt, bottom=6pt,  % 上下内边距
+    breakable             % 允许盒子在跨页时自动断开
+}
+
+% ====== 自定义命令 ======
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\source}[1]{\par \hfill ——#1}
+
+\title{0阶 Bessel 函数的 Laplace 变换}
+\author{王晨暄}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{block}
+
+我们知道对于 Bessel 函数 $J_0(t)$，其 Laplace 变换为：
+
+\begin{equation}
+    \mathcal{L}\{J_0(t)\} = \int_0^\infty e^{-st} J_0(t) \dd{t} = \frac{1}{\sqrt{s^2 + 1}}
+    \label{eq:bessel_laplace}
+\end{equation}
+
+公式\eqref{eq:bessel_laplace}说明 $J_0(t)$ 的 Laplace 变换
+的结果为 $\dfrac{1}{\sqrt{s^2 + 1}}$，$\dfrac{1}{\sqrt{s^2 + 1}}$的 Laplace 反演为 $J_0(t)$。
+这个结果在信号处理和控制理论中有广泛的应用。
+下面我们从物理问题出发，使用特定电荷分布与边界条件下的静电场来推导这个公式。
+
+\end{block}
+
+\bigskip
+
+{\kaishu
+    假设无限大导体平面$z=0$接地，空间中的电荷分布为$\rho(\symbfit{r})=q\delta(z-z_0)\delta(x)\delta(y)$。
+    利用电象法求解$z\geq 0$的区域内的电势分布。同时考虑 Poisson 方程的积分变换，导出方程\eqref{eq:bessel_laplace}。
+}
+
+\bigskip
+
+首先根据电象法可知，系统的空间电势函数为：
+
+\begin{equation}
+    \phi(\symbfit{r}) = \frac{q}{4\pi\epsilon_0}\left(\frac{1}{|\symbfit{r}-\symbfit{r}_0|} - \frac{1}{|\symbfit{r}-\symbfit{r}_0'|}\right)
+    \label{eq:potential}
+\end{equation}
+
+即：
+
+\begin{equation}
+    \phi(\symbfit{r}) = \frac{q}{4\pi\epsilon_0}\left(\frac{1}{\sqrt{(z-z_0)^2 + r^2}} - \frac{1}{\sqrt{(z+z_0)^2 + r^2}}\right)
+    \label{eq:potential_explicit}
+\end{equation}
+
+由于在上半空间中电势函数满足 Poisson 方程：
+
+\begin{equation}
+    \nabla^2 \phi(\symbfit{r}) = -\frac{\rho(\symbfit{r})}{\epsilon_0}
+\end{equation}
+
+得到解：
+
+\begin{equation}
+    \phi(\symbfit{r}) = \frac{q}{4\pi\epsilon_0}\left(\frac{1}{\sqrt{(z-z_0)^2 + r^2}}\right) + \int_{0}^{\infty}A(k)J_0(kr)e^{-kz}\dd{k}
+    \label{eq:potential_solution}
+\end{equation}
+
+其中第二项为满足边界条件的齐次解。对比\eqref{eq:potential_explicit}与\eqref{eq:potential_solution}，我们可以得到：
+
+\begin{equation}
+    \int_{0}^{\infty}A(k)J_0(kr)e^{-kz}\dd{k} = -\frac{q}{4\pi\epsilon_0}\left(\frac{1}{\sqrt{(z+z_0)^2 + r^2}}\right)
+    \label{eq:integral_equation}
+\end{equation}
+
+注意到$J_0(0)=1$，因此在上述方程中取$r=0$，可以解出$A(k)$:
+
+\begin{equation}
+    A(k) = \mathcal{L}^{-1}\left(-\frac{q}{4\pi\epsilon_0} \frac{1}{\left|z+z_0\right|}\right)
+\end{equation}
+
+根据 Laplace 变换的性质，我们可以得到：
+
+\begin{equation}
+    A(k)= -\frac{q}{4\pi\epsilon_0} e^{-kz_0}
+\end{equation}
+
+代入\eqref{eq:integral_equation}，化简后得到：
+
+\begin{equation}
+    \mathcal{L}\{J_0(t)\} = \int_0^\infty e^{-st} J_0(t) \dd{t} = \frac{1}{\sqrt{s^2 + 1}}
+\end{equation}
+
+本文旨在提供一个启发式的物理类比（heuristic physical analogy），用于辅助记忆该积分变换公式，而非严格的数学证明。
+
+\end{document}
