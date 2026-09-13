@@ -123,14 +123,17 @@ Li、Be、B（银河系核合成/散裂）
 
 - 观测：遥远星系的光谱线普遍向红端移动，红移量 $z=\Delta\lambda/\lambda_0$；对 $z\ll 1$，退行速度 $v\approx cz$。
 - 若宇宙在均匀各向同性地膨胀，任意两个星系间的距离按同一比例因子 $a(t)$ 缩放，则波长也随之缩放：
+
   $$
   1+z=\frac{\lambda_{\rm obs}}{\lambda_{\rm emit}}=\frac{a_0}{a(t)} .
   $$
 - 把 $a(t)$ 在现在时刻附近展开：$\dot a/a \equiv H_0$（哈勃常数），得到线性关系
+
   $$
   v=H_0 d,\qquad H_0\approx 70\ \mathrm{km\,s^{-1}Mpc^{-1}}.
   $$
 - 由此得到一个特征时间（哈勃时间）：
+
   $$
   t_H=\frac{1}{H_0}\approx \frac{1\ \mathrm{Mpc}}{70\ \mathrm{km/s}}
   =\frac{3.09\times10^{19}\ \mathrm{km}}{70\ \mathrm{km/s}}
@@ -142,6 +145,7 @@ Li、Be、B（银河系核合成/散裂）
 #### 【推导 2】恒星为什么能稳定发光：流体静力学平衡
 
 - 取半径 $r$ 处厚 $dr$、截面积 $dA$ 的柱元，上下压力差提供支撑：
+
   $$
   dP\,dA=-\frac{GM(r)}{r^{2}}\rho\, dA\,dr
   \quad\Longrightarrow\quad
@@ -149,6 +153,7 @@ Li、Be、B（银河系核合成/散裂）
   $$
 - 核聚变产生的高温高压维持这一平衡；一旦燃料耗尽、压力不足，平衡被打破，恒星就坍缩或爆发。这一步是理解"红巨星—白矮星—超新星"演化的物理出发点。
 - 恒星寿命的标度：质量越大，光度越高（主序近似 $L\propto M^{3.5}$），而燃料正比于 $M$，因此
+
   $$
   \tau_{\rm MS}\propto \frac{M}{L}\propto M^{-2.5}.
   $$
@@ -218,10 +223,12 @@ Li、Be、B（银河系核合成/散裂）
 #### 【推导 3】中子/质子平衡与"1:6"的冻结比
 
 - 弱作用反应 $n+e^{+}\rightleftharpoons p+\bar\nu_e$ 等使 p、n 保持统计平衡。非相对论粒子数密度由 Boltzmann 分布给出：
+
   $$
   n_i\propto g_i\,(m_i kT)^{3/2}\exp\!\left(-\frac{m_i c^{2}}{kT}\right).
   $$
 - 取两者之差，且 $(m_n/m_p)^{3/2}\approx1$：
+
   $$
   \boxed{\ \frac{n_n}{n_p}\approx\exp\!\left(-\frac{(m_n-m_p)c^{2}}{kT}\right)
   =\exp\!\left(-\frac{1.293\ \mathrm{MeV}}{kT}\right)\ }
@@ -230,6 +237,7 @@ Li、Be、B（银河系核合成/散裂）
   其中 $m_n-m_p=1.293\ \mathrm{MeV}/c^2$。
 - 当 $T=10^{10}$ K 时，$kT=0.862\ \mathrm{MeV}$，得 $n/p\approx e^{-1.5}=0.22$。
 - 反应率与膨胀率的竞争决定"冻结"：弱作用率 $\Gamma_{\rm weak}\propto T^{5}$，而辐射主导时期的膨胀率 $H\propto T^{2}$，所以 $\Gamma/H\propto T^{3}$ 随降温迅速下降。当 $\Gamma\approx H$（$kT\approx0.7$–$0.8$ MeV，$t\approx1$–2 s）时反应"冻结"，得到
+
   $$
   \frac{n}{p}\approx e^{-1.293/0.8}\approx 0.2\approx\frac{1}{5}\sim\frac{1}{6},
   $$
@@ -239,10 +247,12 @@ Li、Be、B（银河系核合成/散裂）
 #### 【推导 4】为什么原初氦丰度恰好是 ~25%（质量分数）
 
 - 假设：冻结后到核合成结束（约 200 s）期间，中子因自由衰变（平均寿命 $\tau\approx880$ s）减少：
+
   $$
   \frac{n}{p}(t)=\frac{1}{6}\,e^{-(200-2)/880}\approx\frac{1}{6}\times0.80\approx\frac{1}{7.5}=0.133 .
   $$
 - 几乎所有剩余中子都被锁进最稳定的 ⁴He（每个 ⁴He 含 2n+2p，另有极少 ²H、³He 残留）。设 $r=n/p$，则 He 的个数为 $n/2$，质量分数为
+
   $$
   \boxed{\ Y=\frac{4\times(n/2)}{n+p}=\frac{2r}{1+r}\ }
   $$
@@ -291,6 +301,7 @@ Li、Be、B（银河系核合成/散裂）
    $$
 
    另有涉及 Li、Be、B 的支链。自第二代恒星（含 C）起，**CNO 循环**成为 M ≳ 1.1 M☉ 恒星的重要产能方式：
+
    $$
    {}^{12}\mathrm{C}(p,\gamma){}^{13}\mathrm{N}(\beta^{+},\nu){}^{13}\mathrm{C}(p,\gamma){}^{14}\mathrm{N}(p,\gamma){}^{15}\mathrm{O}(\beta^{+},\nu){}^{15}\mathrm{N}(p,\alpha){}^{12}\mathrm{C}.
    $$
@@ -325,12 +336,14 @@ Li、Be、B（银河系核合成/散裂）
 #### 【推导 7】CNO 循环的净效应与"瓶颈"为何积累 ¹⁴N
 
 - 把六步反应相加，中间核 ¹³N、¹³C、¹⁴N、¹⁵O、¹⁵N 都只是循环中介，净反应为
+
   $$
   4\,{}^1\mathrm{H}\rightarrow{}^4\mathrm{He}+2e^{+}+2\nu_e+Q,\qquad Q\approx26.7\ \mathrm{MeV},
   $$
 
   与 pp 链相同（能量账只由始末态决定），其中两次 β⁺ 衰变（¹³N、¹⁵O，半衰期分别约 10 min 与 2 min）各放出一个中微子。
 - 稳态下每个中间核的净消耗速率等于生成速率；对 ¹⁴N：
+
   $$
   \frac{dn_{14}}{dt}=n_{13}n_p\langle\sigma v\rangle_{13\rightarrow14}-n_{14}n_p\langle\sigma v\rangle_{14\rightarrow15}\approx0 .
   $$
@@ -341,11 +354,13 @@ Li、Be、B（银河系核合成/散裂）
 #### 【推导 8】三α过程：为什么必须"高密度"（⁸Be 的平衡丰度）
 
 - ⁸Be 的结合能仅比 2α 低 $\varepsilon=0.092$ MeV，即"勉强束缚"；⁴He+⁴He 平衡：
+
   $$
   \frac{n_{\rm Be}}{n_{\rm He}}\approx n_{\rm He}\,\lambda_{\rm th}^{3}\,e^{-\varepsilon/kT},
   \qquad \lambda_{\rm th}=\frac{h}{\sqrt{2\pi m_{\rm red}kT}},\quad m_{\rm red}=\frac{m_{\rm He}}{2}.
   $$
 - 取 T=1.5×10⁸ K（$kT=12.9$ keV）：$e^{-\varepsilon/kT}=e^{-7.1}\approx8\times10^{-4}$，热波长 $\lambda_{\rm th}\approx10^{-13}$ m，而氦核数密度 $n_{\rm He}\sim10^{31}\ \mathrm{m^{-3}}$，于是
+
   $$
   \frac{n_{\rm Be}}{n_{\rm He}}\sim10^{-11}.
   $$
@@ -428,6 +443,7 @@ $$
 **本部分要点**：
 
 - 在含重元素的第二代及以后恒星中，红巨星阶段可以有中子俘获。中子来源：
+
   $$
   {}^{13}\mathrm{C}+{}^4\mathrm{He}\rightarrow{}^{16}\mathrm{O}+n,\qquad
   {}^{22}\mathrm{Ne}+{}^4\mathrm{He}\rightarrow{}^{25}\mathrm{Mg}+n,\qquad
@@ -451,16 +467,19 @@ $$
 #### 【推导 11】s-过程的 $\sigma N\approx\rm const$ 与魔法数丰度峰
 
 - 在 s-过程中，核素 $A$ 的丰度 $N_A$ 在长曝光下近似达到"流平衡"：
+
   $$
   \frac{dN_A}{dt}\approx n_n\langle\sigma v\rangle_{A-1}N_{A-1}-n_n\langle\sigma v\rangle_A N_A-\lambda_\beta N_A\approx0 .
   $$
 - 在相邻核间（忽略 β 衰变），近似得到
+
   $$
   \sigma_A N_A\approx \sigma_{A-1}N_{A-1}\approx\cdots\approx\rm const .
   $$
 
   **即俘获截面越小，该核素最终丰度越高。**
 - 中子魔法数核（N=50、82、126）特别稳定，中子俘获截面异常小；而其"邻居"（刚好差一两个中子到闭壳）截面很大。因此：
+
   - 魔法数核被"生成快、销毁慢" → 形成**峰**（Sr/Zr、Ba、Pb）；
   - 紧邻魔法数之前的核截面大 → 形成**谷**；
   - β 衰变再把尖锐的峰"抹匀"成宽峰。
@@ -498,6 +517,7 @@ $$
   $$
 
   当 $p_F\gtrsim m_e c$ 时电子为极端相对论性，单个电子能量 $\varepsilon\approx p_Fc\propto n_e^{1/3}$，简并压
+
   $$
   P\propto n_e\,\frac{p_Fc}{3}\propto n_e^{4/3}\ \ (\text{相对论简并}).
   $$
@@ -525,6 +545,7 @@ $$
 #### 【推导 13】核物质密度与中子星
 
 - 以核子半径 $r_0\approx1.2$ fm 估算：每个核子占据体积 $\frac{4}{3}\pi r_0^{3}\approx7.2\ \mathrm{fm^3}$，数密度
+
   $$
   n_0\approx\frac{1}{7.2\ \rm fm^3}=0.138\ \mathrm{fm^{-3}}=1.4\times10^{44}\ \mathrm{m^{-3}},
   $$
@@ -544,6 +565,7 @@ $$
 #### 【推导 15】p-过程为何困难：库仑位垒与 Gamow 穿透
 
 - 质子与核的相互作用势在 $r>R$ 时为库仑势 $V(r)=Z_1Z_2e^{2}/r$，位垒高度
+
   $$
   V_B=\frac{Z_1Z_2e^{2}}{r_0(A_1^{1/3}+A_2^{1/3})}
   =\frac{Z_1Z_2\times1.44\ \mathrm{MeV\,fm}}{r_0(A_1^{1/3}+A_2^{1/3})},\quad r_0\approx1.2\ \mathrm{fm}.
@@ -551,6 +573,7 @@ $$
 
   例：p+¹²C 的 $V_B\approx2.2$ MeV，p+²⁸Si 约 4.2 MeV。而超新星相关温度 $T\sim10^9$ K 时 $kT\approx86$ keV，热运动远不足以越垒。
 - **量子隧穿**给出反应截面（Gamow 因子）：
+
   $$
   \sigma(E)\propto S(E)\,\frac{1}{E}\,\exp(-2\pi\eta),\qquad
   \eta=\frac{Z_1Z_2e^{2}}{\hbar v}=Z_1Z_2\,\alpha\,\frac{c}{v}.
