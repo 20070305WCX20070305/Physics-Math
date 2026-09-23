@@ -1,6 +1,6 @@
 # 低能量子散射中的因果性与普适性
 
-> **原文**：H.-W. Hammer and Dean Lee, *Causality and universality in low-energy quantum scattering*, Phys. Lett. B **681**, 500 (2009); arXiv:0907.1763。
+> **原文**：H.-W. Hammer and Dean Lee, *Causality and universality in low-energy quantum scattering*, Phys. Lett. B **681**, 500 (2009); arXiv:0907.1763。			
 
 ---
 
