@@ -1,0 +1,257 @@
+% !TEX program = xelatex
+
+\documentclass[11pt,a4paper]{ctexart}
+
+% ====== 字体 ======
+\usepackage{fontspec}
+\setmainfont{Latin Modern Roman}
+\usepackage{unicode-math}
+% 修改：XITS Math 拥有原生粗体数学字形，解决 \symbfit 加粗无效的问题
+\setmathfont{XITS Math}
+
+% ====== 颜色支持 ======
+\usepackage{xcolor}
+
+% ====== 页面设置 ======
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\pagestyle{plain}
+
+% ====== 数学宏包 ======
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amsthm}
+% \usepackage{amssymb}   % 删除
+% \usepackage{bm}        % 彻底删除
+
+% ====== 三线表 + 数字对齐 ======
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{enumitem}
+
+% ====== 交叉引用与超链接 ======
+\usepackage[colorlinks=true,
+            linkcolor=blue,
+            citecolor=green,
+            urlcolor=cyan]{hyperref}
+\usepackage[noabbrev,nameinlink]{cleveref}
+
+% ====== 框架图形 ======
+\usepackage{tcolorbox}  % 引入 tcolorbox 宏包
+\tcbuselibrary{skins, breakable} % 加载所需库，以实现更多样式和自动分页
+
+% 定义一个名为 block 的环境
+\newtcolorbox{block}{
+    colback=white,        % 背景色
+    colframe=black!75,    % 边框颜色
+    boxrule=0.5mm,        % 边框粗细
+    arc=2mm,              % 圆角大小
+    boxsep=5pt,           % 边框与内容的间距
+    left=6pt, right=6pt,  % 左右内边距
+    top=6pt, bottom=6pt,  % 上下内边距
+    breakable             % 允许盒子在跨页时自动断开
+}
+
+% ====== 自定义命令 ======
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\source}[1]{\par \hfill ——#1}
+
+\title{受迫的阻尼振动}
+\author{王晨暄}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+一维受迫的阻尼振动是力学中常见的模型，假设阻尼力与速度成正比，其运动方程可以表示为：
+
+\begin{equation}
+    \ddot{x}+2\beta\dot{x}+\omega^2x = f(t)
+    \label{eq:motion}
+\end{equation}
+
+在阻尼力可以忽略的情况下，方程化简为$\ddot{x}+\omega^2x = f(x)$，求解这两个方程
+具有一定的技巧性，下面我们从Laplace变换与算子分解两个角度来讨论这两个方程的求解，
+讨论过程中假设已知初值条件为$x(0)=x_0,\,\dot{x}(0)=v_0$，随后基于实数域内多项式分解的
+理论将这一过程推广到柯西初值条件下任意阶常系数微分方程的求解，并论述算子分解与Laplace变换的
+等价性。
+
+\section{算子分解法}
+
+对于方程\eqref{eq:motion}可以定义作用于$x(t)$的算子为$\hat{P}=\hat{D}^2+2\beta\hat{D}+\omega^2$，
+其中$\hat{D}=\dfrac{\dd}{\dd t}$为时间导数算子。根据代数基本定理，算符$\hat{P}$在复数范围内可以
+因式分解为\footnote{显然，时间导数算子与复数$z$是可交换的。}:
+
+\begin{equation}
+    \hat{P}=\left(\hat{D}-z_1\right)\left(\hat{D} - z_2\right)
+\end{equation}
+
+其中$z_1,\,z_2$为方程$z^2+2\beta z + \omega^2=0$的两个根。定义新变量:
+
+\begin{equation}
+    \xi=\left(\hat{D}-z_2\right)x = \dot{x}-z_2x
+\end{equation}
+
+根据柯西初值条件$\xi(0)$已知，原方程化简为：
+
+\begin{equation}
+    \dot{\xi}-z_1\xi=f(t)
+\end{equation}
+
+此即为一阶常系数微分方程，利用常数变易法可求得方程的解为：
+
+\begin{equation}
+    \xi = \mathrm{e}^{z_1t}\left(\int\mathrm{e}^{-z_1t}f(t)\dd t+C\right)
+    \label{eq:solution_op}
+\end{equation}
+
+其中积分常数可以由$\xi(0)=\dot{x}(0)-z_2x(0)=v_0-z_2x_0$确定
+
+此时原方程化简为一阶常系数非其次微分方程，即实现了降阶操作，重复上面的操作可以求解出$x(t)$
+\footnote{显然对于任意阶数的常系数微分方程我们都可以做类似操作：只要取$\hat{P}_n=(\hat{D}-z_1)\hat{P}_{n-1}$，
+其中下标表示多项式的阶数，定义新变量为$\xi=\hat{P}_{n-1}x$即可将原先微分方程化简为一阶微分方程，求解此微分方程后
+即实现原微分方程阶数下降$1$。但是很明显，这种方法只在某些条件下具有较大的优势，例如对于方程$\ddot{x}+\omega^2x = f(x)$可知
+其变换后坐标为$\xi=\dot{x}+i\omega x$，在求解得到方程\eqref{eq:solution_op}之后取虚部即解出$x(t)$，而在大多情况下
+此方法略显麻烦，因此与之等价但是更具有一般性的处理方法是Laplace变换的方法}。
+
+\section{Laplace变换法}
+
+\subsection{卷积定理}
+
+\textbf{卷积定理}：若有$\mathcal{L}\{f(t)\}=F(p),\quad\mathcal{L}\{g(t)\}=G(p)$，则有
+
+\begin{equation}
+    \mathcal{L}\{(f\ast g)(t)\}=F(p)G(p)
+    \label{eq:laplace_j}
+\end{equation}
+
+其中卷积定义为：$(f\ast g)(t)=\int_{0}^{t}f(t-\tau)g(\tau)\dd \tau$。
+
+\begin{proof}
+根据Laplace变换的定义：$\mathcal{L}\{f(t)\}=\int_{0}^{\infty}f(t)\exp(-pt)\dd t$，得到：
+
+\begin{align*}
+    \mathcal{L}\{(f\ast g)(t)\}&=\int_{0}^{\infty}(f\ast g)(t)e^{-pt}\dd t\\
+    &=\int_{0}^{\infty}\int_{0}^{t}f(t-\tau)g(\tau)e^{-pt}\dd \tau\dd t
+\end{align*}
+
+交换积分次序，得到：
+
+\begin{align*}
+    \mathcal{L}\{(f\ast g)(t)\}&=\int_{0}^{\infty}\int_{0}^{t}f(t-\tau)g(\tau)e^{-pt}\dd \tau\dd t\\
+    &=\int_{0}^{\infty}\int_{\tau}^{\infty}\left(f(t-\tau)e^{-p(t-\tau)}\right)\left(g(\tau)e^{-p\tau}\right)\dd \tau\dd t\\
+    &=\left(\int_{0}^{\infty}g(\tau)e^{-p\tau}\dd \tau\right)\left(\int_{\tau}^{\infty}f(t-\tau)e^{-p(t-\tau)}\dd t\right)\\
+    &=F(p)G(p)
+\end{align*}
+\end{proof}
+
+\subsection{导数的Laplace变换}
+
+\textbf{拉普拉斯变换的基本性质}：若$\mathcal{L}\{f(t)\}=F(p)$，则：
+
+\begin{equation}
+    \mathcal{L}\{f^{(n)}(t)\}=p^nF(p)-\sum_{k=0}^{n-1}p^{n-k}f^{k}(0)
+    \label{eq:laplace_d}
+\end{equation}
+
+\begin{proof}
+    考虑数学归纳法，对于$n = 1$，根据拉普拉斯变换的定义以及分部积分得到：
+
+    \begin{align*}
+         \mathcal{L}\{f'(t)\}&=\int_{0}^{\infty}f'(t)e^{-pt}\dd t\\
+         &=\left.f(t)e^{-pt}\right|_{0}^{\infty}-\int_{0}^{\infty}f(t)\frac{\dd e^{-pt}}{\dd t}\dd t\\
+         &=p\mathcal{L}\{f(t)\}-f(0)\\
+         &=pF(p)-f(0)
+    \end{align*}
+
+    假设对于任意的$n$，方程\eqref{eq:laplace_d}成立，对于$n+1$，有：
+
+    \begin{align*}
+        \mathcal{L}\{f^{(n+1)}(t)\}&=\int_{0}^{\infty}f^{(n+1)}(t)e^{-pt}\dd t\\
+        &=\left.f^{(n)}(t)e^{-pt}\right|_{0}^{\infty}-\int_{0}^{\infty}f^{(n)}(t)\frac{\dd e^{-pt}}{\dd t}\dd t\\
+        &=p\mathcal{L}\{f^{(n)}(t)\}-f^{(n)}(0)\\
+        &=p\left(p^nF(p)-\sum_{k=0}^{n-1}p^{n-k}f^{k}(0)\right)-f^{(n)}(0)\\
+        &=p^{n+1}F(p)-\sum_{k=0}^{n}p^{n+1-k}f^{k}(0)
+    \end{align*}
+\end{proof}
+
+\subsection{一般高阶常系数微分方程的求解}
+
+将上述方法推广至一般的 \(n\) 阶常系数线性非齐次微分方程：
+\begin{equation}
+    a_0 x^{(n)} + a_1 x^{(n-1)} + \cdots + a_{n-1} \dot{x} + a_n x = f(t)
+    \label{eq:general_ode}
+\end{equation}
+其中，\(a_0, a_1, \dots, a_n\) 为常数。
+
+对式 \eqref{eq:general_ode} 两端同时进行 Laplace 变换，并利用导数的拉普拉斯变换性质 \eqref{eq:laplace_d}，可得：
+\begin{equation}
+    \left( \sum_{k=0}^{n} a_{n-k} p^k \right) F(p) - M(p) = \mathcal{L}\{f(t)\}
+\end{equation}
+其中，\(M(p)\) 为由初始条件 \(x(0), \dot{x}(0), \dots, x^{(n-1)}(0)\) 构成的多项式（即对应齐次部分/零输入响应），整理可得：
+\begin{equation}
+    F(p) = \frac{M(p)}{\sum_{k=0}^{n} a_{n-k} p^k} + \frac{\mathcal{L}\{f(t)\}}{\sum_{k=0}^{n} a_{n-k} p^k}
+\end{equation}
+
+由于 \(M(p)\) 相关的反演完全由初始条件决定，且其形式与齐次方程解的结构一致，在此我们重点关注由外力 \(f(t)\) 驱动的零状态响应部分（即特解部分）。令系统的特征多项式为 \(P(p) = \sum_{k=0}^{n} a_{n-k} p^k\)，则受迫响应对应的频域表达式为：
+\begin{equation}
+    F_{\text{main}}(p) = \frac{\mathcal{L}\{f(t)\}}{P(p)}
+\end{equation}
+
+根据多项式理论（代数基本定理），实系数多项式 \(P(p)\) 在复数域内总可以分解为一次因式（对应实根）和二次不可约因式（对应共轭复根）的乘积。假设 \(P(p)\) 包含 \(s\) 个单实根 \(b_i\) 以及 \(r\) 对共轭复根 \(-c_j \pm i d_j\)（其中 \(b_i, c_j, d_j \in \mathbb{R}\)，且 \(s + 2r = n\)），则 \(P(p)\) 可写为：
+\begin{equation}
+    P(p) = a_0 \prod_{i=1}^{s} (p - b_i) \prod_{j=1}^{r} \left[ (p + c_j)^2 + d_j^2 \right]
+\end{equation}
+
+利用部分分式展开法，\(F_{\text{main}}(p)\) 可以化为：
+\begin{equation}
+    F_{\text{main}}(p) \sim \left( \sum_{i=1}^{s} \frac{A_i}{p - b_i} + \sum_{j=1}^{r} \frac{B_j p + C_j}{(p + c_j)^2 + d_j^2} \right) \mathcal{L}\{f(t)\}
+\end{equation}
+
+接下来，我们分别对实数单根项和共轭复根项进行 Laplace 反演：
+
+\begin{enumerate}
+    \item \textbf{实数单根项}：
+    由基本变换对 \(\mathcal{L}^{-1}\left\{\frac{1}{p - b_i}\right\} = e^{b_i t}\) 及卷积定理 \eqref{eq:laplace_j} 可得：
+    \begin{equation}
+        \mathcal{L}^{-1}\left\{ \frac{A_i}{p - b_i} \mathcal{L}\{f(t)\} \right\} = A_i \int_{0}^{t} e^{b_i(t-\tau)} f(\tau) \dd \tau
+    \end{equation}
+    
+    \item \textbf{共轭复根项}：
+    对于二次项，我们先对分子进行配方，拆分为含有 \((p+c_j)\) 的项与常数项：
+    \begin{equation}
+        \frac{B_j p + C_j}{(p + c_j)^2 + d_j^2} = B_j \frac{p + c_j}{(p + c_j)^2 + d_j^2} + \frac{C_j - c_j B_j}{d_j} \frac{d_j}{(p + c_j)^2 + d_j^2}
+    \end{equation}
+    容易验证其逆变换为指数衰减的余弦与正弦函数：
+    \begin{equation}
+        \mathcal{L}^{-1}\left\{ \frac{B_j p + C_j}{(p + c_j)^2 + d_j^2} \right\} = B_j e^{-c_j t} \cos(d_j t) + \frac{C_j - c_j B_j}{d_j} e^{-c_j t} \sin(d_j t)
+    \end{equation}
+    再次应用卷积定理，该部分对应的时域响应为：
+    \begin{equation}
+        \int_{0}^{t} \left[ B_j e^{-c_j(t-\tau)} \cos(d_j(t-\tau)) + \frac{C_j - c_j B_j}{d_j} e^{-c_j(t-\tau)} \sin(d_j(t-\tau)) \right] f(\tau) \dd \tau
+    \end{equation}
+\end{enumerate}
+
+综上所述，方程 \eqref{eq:general_ode} 的受迫响应（零状态响应）的完整时域积分表达式为：
+\begin{align}
+    x_{\text{main}}(t) &= \sum_{i=1}^{s} A_i \int_{0}^{t} e^{b_i(t-\tau)} f(\tau) \dd \tau \nonumber \\
+    &\quad + \sum_{j=1}^{r} \int_{0}^{t} \left[ B_j e^{-c_j(t-\tau)} \cos(d_j(t-\tau)) + \frac{C_j - c_j B_j}{d_j} e^{-c_j(t-\tau)} \sin(d_j(t-\tau)) \right] f(\tau) \dd \tau
+    \label{eq:final_solution}
+\end{align}
+
+\section{两种方法的等价性论述}
+
+回顾第一节中的\textbf{算子分解法}，我们通过因式分解将 \(n\) 阶方程转化为 \(n\) 个一阶方程，对于每个一阶方程算子 \((\hat{D} - z_k)\)，其解中包含形如 \(e^{z_k t} \int e^{-z_k t} f(t) \dd t\) 的项，即 \(e^{z_k (t-\tau)} f(\tau)\) 的卷积。
+
+这与我们在 Laplace 变换中得到的式 \eqref{eq:final_solution} 完全一致：
+\begin{itemize}
+    \item 当 \(z_k = b_i\) 为实根时，对应积分项 \(\int_{0}^{t} e^{b_i(t-\tau)} f(\tau) \dd \tau\)；
+    \item 当 \(z_k = -c_j \pm i d_j\) 为共轭复根时，由欧拉公式 \(e^{(-c_j \pm i d_j)t} = e^{-c_j t}(\cos d_j t \pm i \sin d_j t)\)，其实部和虚部正好对应了式 \eqref{eq:final_solution} 中的余弦项和正弦项。
+\end{itemize}
+
+因此，算子分解法与基于部分分式展开的 Laplace 变换法在数学结构上是完全等价的。
+算子分解法体现的是微分方程降阶与一阶线性方程的常数变易法求解过程；而 Laplace 变换法则
+是通过代数域的因式分解（极点的拆分）并借助卷积定理，将微分方程转化为代数运算的直接体现。
+
+\end{document}
